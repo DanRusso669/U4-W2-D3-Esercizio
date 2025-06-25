@@ -1,10 +1,10 @@
 package entities;
 
 public class Product {
-    long id;
-    String name;
-    String category;
-    double price;
+    private long id;
+    private String name;
+    private String category;
+    private double price;
 
     public Product(long id, String name, String category, double price) {
         this.id = id;

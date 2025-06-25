@@ -1,9 +1,9 @@
 package entities;
 
 public class Customer {
-    long id;
-    String name;
-    int tier;
+    private long id;
+    private String name;
+    private int tier;
 
     public Customer(long id, String name, int tier) {
         this.id = id;

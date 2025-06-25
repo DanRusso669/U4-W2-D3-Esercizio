@@ -87,8 +87,7 @@ public class Main {
 
         Predicate<Product> isBoys = product -> product.getCategory().equals("Boys");
 
-        List<Product> discountedBoysItems = productsInStock.stream().filter(isBoys).toList();
-        discountedBoysItems.forEach(product -> product.setPrice(product.getPrice() - (product.getPrice() * 0.1)));
+        List<Product> discountedBoysItems = productsInStock.stream().filter(isBoys).map(product -> new Product(product.getId(), product.getName(), product.getCategory(), product.getPrice() * .9)).toList();
 
         System.out.println(discountedBoysItems);
 
@@ -96,11 +95,11 @@ public class Main {
 
         // -------------------------------- Exercise 4 -------------------------------------------------
 
-        Predicate<Order> isTier2 = order -> order.getCustomer().getTier() == 2;
+        Predicate<Order> isTier2 = order -> order.getCustomer().getTier() == 2 && order.getOrderDate().isAfter(dayOne.minusDays(1)) && order.getOrderDate().isBefore(lastDay.plusDays(1));
 
         List<Order> tier2Orders = orderList.stream().filter(isTier2).toList();
-        List<Order> specificOrders = tier2Orders.stream().filter(order -> order.getOrderDate().isAfter(dayOne) && order.getOrderDate().isBefore(lastDay)).toList();
-        List<Product> timeProducts = specificOrders.stream().flatMap(order -> order.getProducts().stream()).toList();
+        //List<Order> specificOrders = tier2Orders.stream().filter(order -> order.getOrderDate().isAfter(dayOne.minusDays(1)) && order.getOrderDate().isBefore(lastDay.plusDays(1))).toList();
+        List<Product> timeProducts = tier2Orders.stream().flatMap(order -> order.getProducts().stream()).toList();
 
         System.out.println(timeProducts);
     }
